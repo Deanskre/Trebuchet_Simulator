@@ -1,9 +1,10 @@
 
 // Populate a global variable for the spaceship
-function InitializeSpaceship() {
+function InitializeTrebuchet() {
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
   context.scale(1,1);
+  var x = document.getElementById("field.jpg");
   SPACE_SHIP = {
     x : 300,
     y : 150,

@@ -8,5 +8,5 @@
 function Start() {
 
   // Initialize Spaceship
-  InitializeSpaceship();
+  InitializeTrebuchet();
 }
