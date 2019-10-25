@@ -70,9 +70,18 @@ function HandleNewObjectMovement() {
 
 
 function runGame() {
-  // var canvas = document.getElementById('mainCanvas');
-  // var context = canvas.getContext('2d');
-  // if (GAME.started) {
+  var canvas = document.getElementById('mainCanvas');
+  var context = canvas.getContext('2d');
+  var img = new Image();
+  img.onload = function() {
+    context.drawImage(img,0,0);
+
+  }
+  img.src = 'field.jpg';
+  // var x = new Image (context.length,context.width);
+  // x.src = 'field.jpg';
+  // document.body.appendChild(x);
+  if (GAME.started) {
   //
   //   // 1 - Reposition the objects
   //   handleShipAnimation();
@@ -82,17 +91,17 @@ function runGame() {
   //   context.clearRect(0, 0, 600, 300);
   //
   //   // 3 - Draw new items
-  //   RenderSpaceship(context);
+     RenderSpaceship(context);
   //   RenderNewObject(context);
   //   RenderNewObject(context);
-  // 
-  // } else {
-  //   context.font = "30px Arial";
-  //   context.fillText("Game Over      Level " + GAME.level, 135, 200);
-  // }
-  // window.requestAnimationFrame(runGame);
+  //
+  } else {
+   context.font = "30px Arial";
+   context.fillText("Game Over      Level " + GAME.level, 135, 200);
+  }
+   window.requestAnimationFrame(runGame);
 }
 
 // window.requestAnimationFrame(HandleNewObjectMovement);
 //
-// window.requestAnimationFrame(runGame);
+ window.requestAnimationFrame(runGame);
