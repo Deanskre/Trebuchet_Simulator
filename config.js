@@ -28,3 +28,19 @@ var OBSTACLE_BOTTOM = {
   x : 580,
   y : 200
 }
+
+var PAYLOAD_ARM = {
+
+}
+var COUNTERWEIGHT_ARM = {
+
+}
+var SLING = {
+
+}
+var PROJECTILE = {
+
+}
+var COUNTERWEIGHT = {
+
+}
