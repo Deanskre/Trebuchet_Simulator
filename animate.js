@@ -68,8 +68,10 @@ function HandleNewObjectMovement() {
 //   }
 // }
 function goToGame() {
+
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
+
   var img = new Image();
   img.onload = function() {
     context.drawImage(img,0,0,600,300);
@@ -82,6 +84,7 @@ function goToGame() {
   var body = document.getElementsByTagName("body")[0];
   body.appendChild(button);
 
+
 // 3. Add event handler
   button.addEventListener ("click", function() {
     goToDesign();
@@ -89,8 +92,10 @@ function goToGame() {
 }
 
 function goToDesign(){
+
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
+
   var image = new Image();
   image.onload = function() {
     context.drawImage(image,0,0,600,300);
@@ -99,13 +104,15 @@ function goToDesign(){
   var button = document.createElement("button");
   button.innerHTML = "Go to Game";
 
-// 2. Append somewhere
+
   var body = document.getElementsByTagName("body")[0];
   body.appendChild(button);
 
-// 3. Add event handler
+
   button.addEventListener ("click", function() {
+
     goToGame();
+
   });
 }
 
