@@ -29,18 +29,18 @@ var OBSTACLE_BOTTOM = {
   y : 200
 }
 
-var PAYLOAD_ARM = {
+var PROJECTILE_MASS = {
 
 }
-var COUNTERWEIGHT_ARM = {
+var COUNTERWIEIGHT_MASS = {
 
 }
-var SLING = {
+var SLING_LENGTH = {
+
+}
+var ARM_LENGTH = {
 
 }
 var PROJECTILE = {
-
-}
-var COUNTERWEIGHT = {
 
 }
