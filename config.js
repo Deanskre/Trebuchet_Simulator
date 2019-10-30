@@ -30,7 +30,7 @@ var OBSTACLE_BOTTOM = {
 }
 
 var PROJECTILE_MASS = {
-
+  weight : 10
 }
 var COUNTERWIEIGHT_MASS = {
 

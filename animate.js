@@ -67,6 +67,25 @@ function HandleNewObjectMovement() {
 //     OBSTACLE_BOTTOM.y=0;
 //   }
 // }
+function setTextField(variable){
+  var box = document.createElement("INPUT");
+  box.setAttribute("type", "text");
+  var body = document.getElementsByTagName("body")[0];
+  body.appendChild(box);
+  if (document.getElementById(box).value != null){
+    variable.weight = document.getElementById(box).value;
+  }
+}
+
+
+function pullOptions(){
+  setTextField(PROJECTILE_MASS);
+  setTextField(COUNTERWIEIGHT_MASS);
+  setTextField(SLING_LENGTH);
+  setTextField(ARM_LENGTH);
+  setTextField(PROJECTILE);
+}
+
 function goToGame() {
 
   var canvas = document.getElementById('mainCanvas');
@@ -107,7 +126,7 @@ function goToDesign(){
 
   var body = document.getElementsByTagName("body")[0];
   body.appendChild(button);
-
+  pullOptions();
 
   button.addEventListener ("click", function() {
 
