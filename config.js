@@ -7,7 +7,7 @@ var GAME = {
   level : 1
 };
 
-var SPACE_SHIP = {
+/*var SPACE_SHIP = {
   initialized : false,
   bullets : [],
   latest : {
@@ -44,3 +44,4 @@ var ARM_LENGTH = {
 var PROJECTILE = {
 
 }
+*/
