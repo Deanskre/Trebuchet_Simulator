@@ -19,6 +19,8 @@ function InitializeTrebuchet(){
     tv: .05,
     ta: .001
   }
+
+  //sets the positions of the text input boxes
   weightInput._x =520;
   weightInput._y = 380;
   angleInput._x =140;
