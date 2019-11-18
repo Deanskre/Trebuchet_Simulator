@@ -1,169 +1,154 @@
-/**
- *  handleShipAnimation moves the ship based on its direction and
- *    keyboard control
- *
- */
-function handleShipAnimation() {
-  // if (CONTROLS.ship.forward) {
-  //   var radians = (Math.PI / 180) * SPACE_SHIP.rotation,
-  //       cos = Math.cos(radians),
-  //       sin = Math.sin(radians);
-  //   SPACE_SHIP.x += SPACE_SHIP.speed * sin;
-  //   SPACE_SHIP.y +=  SPACE_SHIP.speed * cos;
-  // }
-  // if (CONTROLS.ship.backward) {
-  //   var radians = (Math.PI / 180) * SPACE_SHIP.rotation,
-  //       cos = Math.cos(radians),
-  //       sin = Math.sin(radians);
-  //   SPACE_SHIP.x -= SPACE_SHIP.speed * sin;
-  //   SPACE_SHIP.y -=  SPACE_SHIP.speed * cos;
-  // }
-  // if (CONTROLS.ship.rotateClockwise) {
-  //   SPACE_SHIP.rotation -= 4;
-  // }
-  // if (CONTROLS.ship.rotateCounterClockwise) {
-  //   SPACE_SHIP.rotation += 4;
-  // }
-  //
-  // // Check if asteroid is leaving the boundary, if so, switch sides
-  // if (SPACE_SHIP.x > GAME.canvas.width) {
-  //   SPACE_SHIP.x = 0;
-  // } else if (SPACE_SHIP.x < 0) {
-  //   SPACE_SHIP.x = 600;
-  // } else if (SPACE_SHIP.y > GAME.canvas.height) {
-  //   SPACE_SHIP.y = 0;
-  // } else if (SPACE_SHIP.y < 0) {
-  //   SPACE_SHIP.y = 300;
-  // }
-}
-//creats and object of size hieght 20 and length 20 and NEW_OBJECT.x,NEW_OBJECT.y,20,20
-function RenderNewObject(context) {
-  // context.fillRect(NEW_OBJECT.x,NEW_OBJECT.y,40,40);
-  // context.fillRect(OBSTACLE.x, OBSTACLE.y,20, 100);
-  // context.fillRect (OBSTACLE_BOTTOM.x, OBSTACLE_BOTTOM.y, 20,100);
+var weightInput = new CanvasInput({
+  canvas: document.getElementById('mainCanvas'),
+  fontSize: 10,
+  fontFamily: 'Arial',
+  fontColor: '#212121',
+  fontWeight: 'bold',
+  width: 130,
+  padding: 8,
+  borderWidth: 1,
+  borderColor: '#000',
+  borderRadius: 3,
+  boxShadow: '1px 1px 0px #fff',
+  innerShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
+  placeHolder: 'Counterweight mass'
+});
+var angleInput = new CanvasInput({
+  canvas: document.getElementById('mainCanvas'),
+  fontSize: 10,
+  fontFamily: 'Arial',
+  fontColor: '#212121',
+  fontWeight: 'bold',
+  width: 130,
+  padding: 8,
+  borderWidth: 1,
+  borderColor: '#000',
+  borderRadius: 3,
+  boxShadow: '1px 1px 0px #fff',
+  innerShadow: '0px 0px 5px rgba(0, 0, 0, 0.5)',
+  placeHolder: 'Launch angle'
+});
 
-}
-// moves the object in a diagonal resetting when it hits the border at the top left corner
-function HandleNewObjectMovement() {
-  // document.body.onkeyup = function(e){
-  //   if(e.keyCode == 38){
-  //       NEW_OBJECT.y-=10;
-  //   }
-}
-// document.body.onkeydown = function(e){
-//   if(e.keyCode == 40){
-//       NEW_OBJECT.y+=10;
-//   }
-// }
-//
-//
-//   OBSTACLE.x-=1;
-//   OBSTACLE_BOTTOM.x-=1;
-//   if (NEW_OBJECT.x>GAME.canvas.width) {
-//     OBSTACLE.x=0;
-//     OBSTACLE_BOTTOM.x=0;
-//   } else if (NEW_OBJECT.y>GAME.canvas.height) {
-//     OBSTACLE.y=0;
-//     OBSTACLE_BOTTOM.y=0;
-//   }
-// }
-function setTextField(variable){
-  var box = document.createElement("INPUT");
-  box.setAttribute("type", "text");
-  var body = document.getElementsByTagName("body")[0];
-  body.appendChild(box);
-  if (document.getElementById(box).value != null){
-    variable.weight = document.getElementById(box).value;
+function handleProjectileAnimation() {
+  if (!PROJ.fired&&weightInput._value>0){
+    TREBUCHET.counterweight =weightInput._value;
+
+  }
+  if (!PROJ.fired&&angleInput._value>=0&&angleInput._value<=90){
+    TREBUCHET.releaseAngle =Math.PI *angleInput._value/180;
+
+  }
+  if (!PROJ.fired && CONTROLS.treb.fire) {
+    PROJ.xv = Math.sqrt(TREBUCHET.counterweight * Math.cos(TREBUCHET.releaseAngle));
+    PROJ.yv = -Math.sqrt(TREBUCHET.counterweight * Math.sin(TREBUCHET.releaseAngle));
+    PROJ.fired=true;
+  } else if (PROJ.fired){
+    GAME.t+=GAME.tv;
+    GAME.tv+=GAME.ta*Math.sqrt(TREBUCHET.counterweight);
+    if (GAME.t>Math.PI/2 - TREBUCHET.releaseAngle){
+      GAME.tv-=GAME.ta*Math.sqrt(TREBUCHET.counterweight);
+      GAME.t-=GAME.tv;
+
+      PROJ.x += PROJ.xv;
+      PROJ.yv += PROJ.ya;
+      PROJ.y += PROJ.yv;
+      if (PROJ.y>500-PROJ.rad){
+        PROJ.y =500-PROJ.rad
+        PROJ.yv = -.3*PROJ.yv;
+        if (PROJ.xv>0){
+          PROJ.xv-=.2;
+        }
+        if (PROJ.xv<0){PROJ.xv=0}
+      }
+    }
+    else {
+      PROJ.x = 70 -53.46*Math.cos(GAME.t+.1313);
+      PROJ.y = 470- 53.46*Math.sin(GAME.t+.1313);
+    }
   }
 }
 
-
-function pullOptions(){
-  setTextField(PROJECTILE_MASS);
-  setTextField(COUNTERWIEIGHT_MASS);
-  setTextField(SLING_LENGTH);
-  setTextField(ARM_LENGTH);
-  setTextField(PROJECTILE);
+function renderProjectile(context) {
+  if (!CONTROLS.zoomIn){
+  context.beginPath();
+  context.moveTo(PROJ.x + 10, PROJ.y + 10);
+  context.arc(PROJ.x, PROJ.y, PROJ.rad, 0, Math.PI * 2, true);
+  context.fill();
+}
+else{
+  PROJ.x = 17;
+  PROJ.y = 463;
+  PROJ.fired = false;
+}
 }
 
-function goToGame() {
+function renderTreb(context, canvas){
+  var plank = new Image();
+  plank.src = 'plank.png';
+  if (CONTROLS.zoomIn){
+    GAME.t=0;
+    GAME.tv=0;
+    context.drawImage(plank, 110, 275, 500, 150);
+    context.fillStyle = "#B5651D";
+    context.fillRect(550, 350, 50, 75);
+    context.beginPath();
+    context.moveTo(350, 500);
+    context.lineTo(450, 350);
+    context.lineTo(550, 500);
+    context.lineTo(350, 500);
+    context.fill();
+    context.fillStyle = "#000000";
+    weightInput.render(canvas);
+    angleInput.render (canvas);
+    context.font = "30px Arial";
+    context.fillText("Initial values are 45° and 100kg. Trebuchet will hold whatever the most recently ", 30, 100);
+    context.fillText("inputted valid values are. Remember to click out of the text boxes before switching", 30, 140);
+    context.fillText("back to the firing range. (Press e to switch)", 30, 180);
 
-  var canvas = document.getElementById('mainCanvas');
-  var context = canvas.getContext('2d');
 
-  var img = new Image();
-  img.onload = function() {
-    context.drawImage(img,0,0,600,300);
-  }
-  img.src = 'field.jpg';
-  var button = document.createElement("button");
-  button.innerHTML = "Go to Design Trebuchet";
-
-// 2. Append somewhere
-  var body = document.getElementsByTagName("body")[0];
-  body.appendChild(button);
-
-
-// 3. Add event handler
-  button.addEventListener ("click", function() {
-    goToDesign();
-  });
+  }else{
+  drawRotatedImage(context, plank, 50, 470, 100, 30, GAME.t );
+  context.fillStyle = "#B5651D";
+  context.fillRect(50+40*Math.cos(GAME.t), 470+20*Math.sin(GAME.t), 10, 15);
+  context.beginPath();
+  context.moveTo(50, 500);
+  context.lineTo(70, 470);
+  context.lineTo(90, 500);
+  context.lineTo(50, 500);
+  context.fill();
+  context.fillStyle = "#000000";
+}
 }
 
-function goToDesign(){
-
-  var canvas = document.getElementById('mainCanvas');
-  var context = canvas.getContext('2d');
-
-  var image = new Image();
-  image.onload = function() {
-    context.drawImage(image,0,0,600,300);
-  }
-  image.src = 'DesignBack.jpg';
-  var button = document.createElement("button");
-  button.innerHTML = "Go to Game";
-
-
-  var body = document.getElementsByTagName("body")[0];
-  body.appendChild(button);
-  pullOptions();
-
-  button.addEventListener ("click", function() {
-
-    goToGame();
-
-  });
+function drawRotatedImage(context, image, x, y, width, height, angle) {
+  context.save();
+  context.translate(x+20, y);
+  context.rotate(angle);
+  context.drawImage(image, (-width / 2)-20, -height / 2, width, height);
+  context.restore();
+  //To make this function work for top left, change translate(x, y) to translate(x+width/2, y+height/2)
+  //Then, make the drawImage(image, 0, 0, width, height);
 }
 
 function runGame() {
 
-  goToGame();
 
+  var canvas = document.getElementById('mainCanvas');
+  var context = canvas.getContext('2d');
 
-  // var x = new Image (context.length,context.width);
-  // x.src = 'field.jpg';
-  // document.body.appendChild(x);
   if (GAME.started) {
-  //
-  //   // 1 - Reposition the objects
-  //   handleShipAnimation();
-  //   HandleNewObjectMovement();
-  //
-  //   // 2 - Clear the CANVAS
-  //   context.clearRect(0, 0, 600, 300);
-  //
-  //   // 3 - Draw new items
-     RenderSpaceship(context);
-  //   RenderNewObject(context);
-  //   RenderNewObject(context);
-  //
-  } else {
-   context.font = "30px Arial";
-   context.fillText("Game Over      Level " + GAME.level, 135, 200);
-  }
-   window.requestAnimationFrame(runGame);
-}
 
-// window.requestAnimationFrame(HandleNewObjectMovement);
-//
- window.requestAnimationFrame(runGame);
+    //   // 1 - Reposition the objects
+    handleProjectileAnimation();
+
+    //   // 2 - Clear the CANVAS
+    context.clearRect(0, 0, 1200, 500);
+
+    //   // 3 - Draw new items
+    renderTreb(context, canvas);
+    renderProjectile(context);
+
+  }
+  window.requestAnimationFrame(runGame);
+}
+window.requestAnimationFrame(runGame);

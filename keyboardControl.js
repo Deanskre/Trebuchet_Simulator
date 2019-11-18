@@ -4,35 +4,17 @@
  */
 
 var CONTROLS = {
-  ship : {
-    forward : false,
-    back : false,
-    rotateClockwise : false,
-    rotateCounterClockwise : false
-  },
-  fire : {
-    active : false,
-    lastFireTime : 0
-  }
-
+  treb: {fire: false},
+  zoomIn: false
 };
 
 document.addEventListener('keydown', function(event) {
   switch (event.key) {
-    case "ArrowUp":
-      CONTROLS.ship.forward = true;
-      break;
-    case "ArrowDown":
-      CONTROLS.ship.backward = true;
-      break;
-    case "ArrowLeft":
-      CONTROLS.ship.rotateCounterClockwise = true;
-      break;
-    case "ArrowRight":
-      CONTROLS.ship.rotateClockwise = true;
-      break;
     case " ":
-      CONTROLS.fire.active = true;
+      CONTROLS.treb.fire = true;
+      break;
+      case "e":
+      CONTROLS.zoomIn = !CONTROLS.zoomIn;
       break;
     default:
       break;
@@ -42,20 +24,8 @@ document.addEventListener('keydown', function(event) {
 
 document.addEventListener('keyup', function(event) {
   switch (event.key) {
-    case "ArrowUp":
-      CONTROLS.ship.forward = false;
-      break;
-    case "ArrowDown":
-      CONTROLS.ship.backward = false;
-      break;
-    case "ArrowLeft":
-      CONTROLS.ship.rotateCounterClockwise = false;
-      break;
-    case "ArrowRight":
-      CONTROLS.ship.rotateClockwise = false;
-      break;
     case " ":
-      CONTROLS.fire.active = false;
+      CONTROLS.treb.fire = false;
       break;
     default:
       break;
