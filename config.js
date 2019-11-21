@@ -1,47 +1,29 @@
+//look, none of us know how config files work. im pretty sure all this stuff gets overwritten in Initializetrebuchet anyway
+
+
 var GAME = {
   canvas : {
-    width : 600,
-    height : 300
+    width : 1200,
+    height : 500
   },
   started : true,
-  level : 1
+  level : 1,
+  t : 0,//this and the next two affect the rotation of the catapult
+  tv: .05,
+  ta: .001
 };
 
-/*var SPACE_SHIP = {
-  initialized : false,
-  bullets : [],
-  latest : {
-    x : 0,
-    y : 0
-  }
-};
-
-var NEW_OBJECT = {
-  x : 300,
-  y : 150
-};
-var OBSTACLE = {
-  x : 580,
-  y : 0
-};
-var OBSTACLE_BOTTOM = {
-  x : 580,
-  y : 200
+var TREBUCHET = {
+  counterweight: 10, //affects size of force on projectile
+  releaseAngle: (Math.PI)/2.7 //affects angle that force makes with the horizontal
 }
 
-var PROJECTILE_MASS = {
-  weight : 10
+var PROJ ={
+  x: 17,
+  y: 463,
+  rad: 5, //radius of projectile
+  xv:0, //xspeed
+  yv: 0, //yspeed
+  ya: .2, //gravity
+  fired : false
 }
-var COUNTERWIEIGHT_MASS = {
-
-}
-var SLING_LENGTH = {
-
-}
-var ARM_LENGTH = {
-
-}
-var PROJECTILE = {
-
-}
-*/
