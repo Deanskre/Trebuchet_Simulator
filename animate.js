@@ -1,3 +1,4 @@
+/*
 var weightInput = new CanvasInput({
   canvas: document.getElementById('mainCanvas'),
   fontSize: 10,
@@ -142,6 +143,9 @@ function drawRotatedImage(context, image, x, y, width, height, angle) {
   //Then, make the drawImage(image, 0, 0, width, height);
 }
 
+*/
+
+/*
 function runGame() {
 //no touchy the rungame loop
 
@@ -150,17 +154,9 @@ function runGame() {
 
   if (GAME.started) {
 
-    //   // 1 - Reposition the objects
-    handleProjectileAnimation();
-
-    //   // 2 - Clear the CANVAS
-    context.clearRect(0, 0, 1200, 500);
-
-    //   // 3 - Draw new items
-    renderTreb(context, canvas);
-    renderProjectile(context);
 
   }
   window.requestAnimationFrame(runGame);
 }
 window.requestAnimationFrame(runGame);
+*/

@@ -1,4 +1,4 @@
-function InitializeTrebuchet(){
+/*function InitializeTrebuchet(){
   var canvas = document.getElementById('mainCanvas');
   var context = canvas.getContext('2d');
   context.scale(1,1);
@@ -25,4 +25,4 @@ function InitializeTrebuchet(){
   weightInput._y = 380;
   angleInput._x =140;
   angleInput._y = 340;
-}
+}*/
